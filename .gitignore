@@ -33,3 +33,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore credenciais de acesso ao banco de dados.
+config/application.yml
+

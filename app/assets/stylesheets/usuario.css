@@ -1,0 +1,326 @@
+body{
+    padding-top: 80px !important;    
+}
+
+@media (min-width: 1000px) {
+    .bem-vindo{
+        font-size: 1.8rem;
+        color: #fff;
+    }
+}
+
+@media (max-width: 1000px) {
+    .bem-vindo{
+        font-size: 1rem !important;
+        color: #fff;
+    }
+}
+
+
+@media (min-width: 1000px) {
+    .logo{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .logo{
+        font-size: 1rem;;
+    }
+}
+
+/*-------------------------------SUAS PRÓXIMAS REFEIÇÕES----------------------*/
+@media (min-width: 1000px) {
+    .container-d{
+        background-color: #1F519B;
+        height: 87vh;/*antigo 87*/
+        width: 600px;
+        border-radius: 10px;
+        position: relative;
+    }
+}
+@media (max-width: 1000px) {
+    .container-d{
+        background-color: #1F519B;
+        height: 80vh;/*antigo 77*/
+        width: 98%;
+        border-radius: 10px;
+        position: relative;
+    }
+}
+.container2-d{
+    background-color: #B9D5FF;
+    height: 85%;
+    width: 98%;
+    margin-top: 30px;  
+    margin-bottom: 100px;
+    border-radius: 10px;
+} 
+
+.card{
+    background-color: #747BCF;
+    border: none;
+    text-align: left !important;
+    margin-bottom: 5px;
+    margin-top: 5px !important;
+}
+
+
+@media (min-width: 1000px) {
+    .card-header{
+        text-align: center;
+        background-color: #5E5FC0;
+    }
+}
+@media (max-width: 1000px) {
+    .card-header{
+        text-align: center;
+        background-color: #5E5FC0;
+        padding-right: 50px;
+    }
+}
+
+.botoes-menu:hover{
+    background-color: #5E5FC0;
+}
+
+@media (min-width: 1000px) {
+    .capa-cardapio{
+        width: 400px;
+        height: 250px;
+        border-radius: 10px;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center; 
+    }
+}
+@media (max-width: 1000px) {
+    .capa-cardapio{
+        width: 90%;
+        height: 150px;
+        border-radius: 10px;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center; 
+    }
+}
+
+@media (min-width: 1000px) {
+    .cardapio{
+        width: 70%;
+        background-color: #213d66c4;
+        position: absolute;
+        top: 3px;
+        right: 1.5px;
+        left: 1.5px;
+        color: #fff;
+        text-align: left;
+        line-height: 1;
+        font-size: 1.2rem !important;
+        padding: 2px;
+        border-radius: 10px;
+    }
+}
+@media (max-width: 1000px) {
+    .cardapio{
+        width: 70%;
+        background-color: #213d66c4;
+        position: absolute;
+        top: 1px;
+        right: 1.5px;
+        left: 1.5px;
+        color: #fff;
+        text-align: left;
+        line-height: 1;
+        font-size: 1rem !important;
+        padding: 2px;
+        border-radius: 10px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .botoes-cc{
+        width: 400px;;
+    }
+}
+@media (max-width: 1000px) {
+    .botoes-cc{
+        width: 90%;
+    }
+}
+
+/*-------------------------------PLANEJAMENTO MENSAL----------------------*/
+@media (min-width: 1000px) {
+    .bemvindo{
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .bemvindo{
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .container-pm{
+        background-color: #1F519B;
+        height: 87vh;/*antigo 87*/
+        width: 600px; 
+        border-radius: 10px;
+        position: relative;
+    }
+}
+@media (max-width: 1000px) {
+    .container-pm{
+        background-color: #1F519B;
+        height: 80vh;/*antigo 87*/
+        width: 98%; 
+        border-radius: 10px;
+        position: relative;
+    }
+}
+@media (min-width: 1000px) {
+    .container2-pm{
+        background-color: #B9D5FF;
+        height: 75%;/*valor antigo: height: 77%;*/
+        width: 98%;
+        margin-top: 15px;  
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+}
+@media (max-width: 1000px) {
+    .container2-pm{
+        background-color: #B9D5FF;
+        height: 68%;
+        width: 98%;
+        margin-top: 15px;  
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+}
+
+
+/*----BOTÕES----*/
+.btn-confirmar{
+    background-color: #44832d;
+    border-radius: 10px;
+    color: #fff;
+}
+.btn-confirmar:hover{
+    background-color: #3d642f;
+    color: #fff;
+}
+
+.btn-cancelar{
+    background-color: #961c1c;
+    border-radius: 10px;
+    color: #fff;
+}
+.btn-cancelar:hover{
+    background-color: #7a2525;
+    color: #fff;
+}
+
+.btn-desativado{
+    background-color: #6e6e6e;
+    color: #fff;
+    border-radius: 10px;
+}
+.btn-desativado:hover{
+    background-color: #414141;
+    color: #fff;
+}
+
+.btn-neutro{
+    background-color: #747BCF;
+    color: #fff;
+    border-radius: 10px;
+}
+.btn-neutro:hover{
+    background-color: #575eb1;
+    color: #fff;
+}
+
+/*-------------------------------Botões Selecionar/Desselecionar todos----------------------*/
+
+@media (min-width: 1000px) {
+    .grid-container-element { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        height: 25px;
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+    } 
+}
+@media (max-width: 1000px) {
+    .grid-container-element { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        height: 25px;
+        margin-top: 7px;
+        width: 100%; 
+    } 
+}
+
+@media (min-width: 1000px) {
+    .selecionar-desselecionar-todos{
+        font-size: 1rem !important;
+        letter-spacing: -1px;
+    }
+}
+@media (max-width: 1000px) {
+    .selecionar-desselecionar-todos{
+        font-size: 1rem !important;
+        letter-spacing: -1px;
+    }
+}
+/*-------------------------------TELA DE CONFIRMAÇÃO (Modal)----------------------*/
+@media (min-width: 1000px) {
+    .confirmacao-bloco{
+        background-color: #1F519B;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        color: #fff;
+    }
+}
+@media (max-width: 1000px) {
+    .confirmacao-bloco{
+        background-color: #1F519B;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        color: #fff;
+        width: 95%;
+    }
+}
+
+/*-----------------------------------------------------------------PÁGINA DE SUGESTÃO DE MELHORIAS-----------------------------------------------------------------*/
+@media (min-width: 1000px) {
+    .container-sugestao{
+        float: center;
+        background-color: #1F519B;
+        border-radius: 10px;
+        width: 500px;
+        margin: 50px auto;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container-sugestao{
+        float: center;
+        background-color: #1F519B;
+        border-radius: 10px;
+        width: 95%;
+        margin: 50px auto;
+        padding-bottom: 15px;
+        padding-top: 15px;
+    }
+}
