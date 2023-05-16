@@ -11,8 +11,4 @@ class User < ApplicationRecord
     validates :altura, presence: true
     validates :status, presence: true
     validates :unidade_bandejao, presence: true
-  
-    has_secure_password
-  
-    attr_accessor :nome, :sobrenome, :user_type, :data_nascimento, :email, :password, :peso, :altura, :status, :unidade_bandejao
 end

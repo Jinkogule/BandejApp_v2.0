@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <!--Título-->
+        <title>Dashboard - Usuário</title>
+
+        <!--Meta Tags-->
+        <%= render 'comuns/metatags' %>
+
+        <!--Bootstrap CSS-->
+        <%= render 'comuns/bootstrap' %>
+
+        <!--Favicon-->
+        <%= render 'comuns/favicon' %>
+
+        <!--Styles-->
+        <%= stylesheet_link_tag 'main' %>
+    </head>
+
+    <body>
+        <!--Navbar-->
+        <%= render 'auth/components/navbar' %>
+
+        <!--Mensagens-->
+        <%= render 'comuns/mensagens' %>
+        
+        <div class="container container-login">
+            Dashboard - Usuário
+            <br>
+            <p>Nome: <%= session[:nome] %></p>
+
+        </div>
+    </body>
+</html>
