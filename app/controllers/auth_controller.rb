@@ -44,7 +44,8 @@ class AuthController < ApplicationController
             peso: data[:peso],
             altura: data[:altura],
             status: data[:status],
-            unidade_bandejao: data[:unidade_bandejao]
+            unidade_bandejao: data[:unidade_bandejao],
+            user_type: "Usuario"
         )
         
         user.save!
@@ -53,6 +54,9 @@ class AuthController < ApplicationController
     end
 
     def realizar_login
+        if flash[:erro].present?
+            @erro = flash[:erro]
+          end
         email = params[:email]
         password = params[:password]
       
@@ -65,11 +69,13 @@ class AuthController < ApplicationController
                 session[:user_type] = user.user_type
                 session[:user_email] = user.email
         
-                if user.user_type == 'Administrator'
+                if user.user_type == 'Administrador'
                     redirect_to admin_dashboard_path
                 else
                     session[:unidade_bandejao] = user.unidade_bandejao
+                    
                     redirect_to controller: 'user', action: 'dashboard'
+
                 end
             else
                 redirect_to login_path, flash: { erro: 'Dados inseridos são inválidos.' }
@@ -77,5 +83,11 @@ class AuthController < ApplicationController
         else
             redirect_to login_path, flash: { erro: 'Email e senha são obrigatórios.' }
         end
+    end
+
+    #Sair
+    def sair
+        reset_session
+        redirect_to login_path, notice: 'Você saiu com sucesso!'
     end
 end

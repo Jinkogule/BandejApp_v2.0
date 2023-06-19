@@ -1,0 +1,1 @@
+Calendario.create(dia_da_semana: "terça-feira", data: "2023-06-06")

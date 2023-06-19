@@ -1,0 +1,118 @@
+<!-- Modals de Confirmação -->
+<div class="modal fade" id="confirmacao<%= event.id %>" data-keyboard="false" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content confirmacao-bloco">
+      <div class="modal-header" style="position: relative">
+        <h5 class="modal-title centraliza" id="exampleModalLongTitle">Confirmação de Presença</h5>
+        <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Prezado(a) <%= session['nome'] %>, você pretende manter o RU selecionado? (<%= event.unidade_bandejao %>)
+      </div>
+      <div class="modal-footer">
+        <div class="row" style="margin: 0 auto;">
+          <div class="col-6">
+            <!-- Confirmar refeição mantendo o RU -->
+            <%= form_with(url: confirmarRefeicao_path, method: :post, id: "confirmar_refeicao") do |form| %>
+              <%= form.hidden_field :id_refeicao, value: event.id %>
+              <%= form.hidden_field :unidade_bandejao, value: event.unidade_bandejao %>
+              <div class="col" style="margin: 0 auto;">
+                <%= form.submit "Sim", class: "btn btn-primary btn-confirmar" %>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-primary btn-neutro" data-dismiss="modal" data-toggle="modal" data-target="#confirmacao-ru<%= event.id %>">Não, irei em outro RU</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notificação de confirmação -->
+<div class="modal fade" id="confirmacao-notificacao<%= event.id %>" data-keyboard="false" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content confirmacao-bloco">
+      <div class="modal-header" style="position: relative">
+        <h5 class="modal-title centraliza" id="exampleModalLongTitle">Confirmação de Presença</h5>
+        <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% data_banco = event.data %>
+        <% data_visual = data_banco.strftime("%d/%m/%y") %>
+        <% dia_da_semana = Calendario.select(:dia_da_semana).find_by(data: data_banco).dia_da_semana %>
+        Prezado(a) <%= session['nome'] %>, você tem
+        <% if event.tipo == 'Almoço' %>
+          um almoço planejado
+        <% elsif event.tipo == 'Janta' %>
+          uma janta planejada
+        <% end %>
+        no campus <%= event.unidade_bandejao %> para <%= dia_da_semana %>, dia <%= data_visual %>.
+        <br><br>
+        Você confirma sua presença?
+      </div>
+      <div class="modal-footer">
+        <div class="row" style="margin: 0 auto;">
+          <div class="col-3">
+            <!-- Confirmar refeição mantendo o RU -->
+            <%= form_with(url: confirmarRefeicao_path, method: :post, id: "confirmar_refeicao") do |form| %>
+              <%= form.hidden_field :id_refeicao, value: event.id %>
+              <%= form.hidden_field :unidade_bandejao, value: event.unidade_bandejao %>
+              <div class="col" style="margin: 0 auto;">
+                <%= form.submit "Sim", class: "btn btn-primary btn-confirmar" %>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-6">
+            <!-- Confirmar refeição trocando o RU -->
+            <button type="button" class="btn btn-primary btn-neutro" data-dismiss="modal" data-toggle="modal" data-target="#confirmacao-ru<%= event.id %>">Sim, mas em outro RU</button>
+          </div>
+          <div class="col-3">
+            <!-- Form cancelamento de refeição -->
+            <%= form_with(url: cancelarRefeicao_path, method: :post, id: "cancelar_refeicao") do |form| %>
+              <%= form.hidden_field :id_refeicao, value: event.id %>
+              <div class="col" style="margin: 0 auto;">
+                <%= form.submit "Não", class: "btn btn-primary btn-cancelar" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmação de RU -->
+<div class="modal fade" id="confirmacao-ru<%= event.id %>" data-keyboard="false" data-backdrop="false" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content confirmacao-bloco">
+      <div class="modal-header" style="position: relative">
+        <h5 class="modal-title centraliza" id="exampleModalLongTitle">Confirmação de Presença</h5>
+        <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form - Confirmar refeição trocando o RU -->
+        <%= form_with(url: confirmarRefeicao_path, method: :post, id: "confirmar_refeicao") do |form| %>
+          <%= form.hidden_field :id_refeicao, value: event.id %>
+          <label for="unidade_bandejao">Selecione o novo local da refeição:</label>
+          <select class="form-control" id="unidade_bandejao" name="unidade_bandejao" required>
+            <option></option>
+            <option>Gragoatá</option>
+            <option>Praia Vermelha</option>
+            <option>Reitoria</option>
+            <option>Veterinária</option>
+            <option>HUAP</option>
+          </select>
+          <div class="modal-footer">
+            <div class="row" style="margin: 0 auto;">
+              <div class="col">
+                <%= form.submit "Confirmar", class: "btn btn-primary btn-confirmar" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

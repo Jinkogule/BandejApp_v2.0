@@ -1,11 +1,13 @@
-<% if session[:successo].present? %>
+
+<% if flash[:successo].present? %>
     <div class="alert alert-success msg-sucesso">
-        <%= session[:successo] %>
+        <%= flash[:successo] %>
     </div>
 <% end %>
 
-<% if session[:erro].present? %>
+<% if flash[:erro].present? %>
     <div class="alert alert-danger msg-erro">
-        <%= session[:erro] %>
+        <%= flash[:erro] %>
     </div>
 <% end %>
+

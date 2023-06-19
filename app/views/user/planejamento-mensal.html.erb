@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <!--Título-->
+        <title>Planejamento Mensal</title>
+
+        <!--Meta Tags-->
+        <%= render 'comuns/metatags' %>
+
+        <!--Bootstrap CSS-->
+        <%= render 'comuns/bootstrap' %>
+
+        <!--Favicon-->
+        <%= render 'comuns/favicon' %>
+
+        <!--Styles-->
+        <%= stylesheet_link_tag 'main' %>
+    </head>
+
+    <body>
+        <!--Navbar-->
+        <%= render 'user/components/navbar' %>
+
+        <!--Mensagens-->
+        <%= render 'comuns/mensagens' %>
+        
+        <div class="container-fluid container-pm">
+            <br>
+            <h2 style="text-align: center; color: #fff;">Planejamento Mensal</h2>
+            <hr>
+            <div style="text-align: center;">
+                <span style="color: #fff;">Selecione as refeições que você pretende realizar no bandejão</span>
+            </div>
+                        <div class="container-fluid container2-pm" style="overflow: auto">
+                <div class="grid-container-element">
+                <div>
+                    <%= form_tag(selecionar_todas_refeicoes_path, method: :post, id: 'selecionar_todas_refeicoes') do %>
+                    <%= csrf_meta_tags %>
+                    <%= check_box_tag :select_all, 1, false, onchange: "$(this).closest('form').submit()" %>
+                    <span class="selecionar-desselecionar-todos">Selecionar todos</span>
+                    <% end %>
+                </div>
+                <div>
+                    <%= form_tag(desselecionar_todas_refeicoes_path, method: :post, id: 'desselecionar_todas_refeicoes') do %>
+
+                    <%= csrf_meta_tags %>
+                    <%= check_box_tag :deselect_all, 1, false, onchange: "$(this).closest('form').submit()" %>
+                    <span class="selecionar-desselecionar-todos">Desselecionar todos</span>
+                    <% end %>
+                </div>
+                </div>
+            </div>
+<% @calendario_dias.each do |calendario| %>
+  <p>Dia da semana: <%= calendario.dia_da_semana %></p>
+  <p>Data: <%= calendario.data %></p>
+  <hr>
+<% end %>
+
+            </div>
+
+    </body>
+</html>
