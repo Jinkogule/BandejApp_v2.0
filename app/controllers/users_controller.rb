@@ -1,13 +1,12 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
     def dashboard
         q_refeicoes = Refeicao.where(user_id: session[:id]).count
       
-        # Vai para o Planejamentomensal caso não possua refeições registradas
+        #Vai para o Planejamentomensal caso não possua refeições registradas
         if q_refeicoes.zero?
             redirect_to user_planejamento_mensal_path
         else
             hoje = Date.today
-      
           
             @events = Refeicao.where(user_id: session[:id]).order(:data, :tipo).paginate(page: 1, per_page: 20)
             @events2 = Refeicao.where(user_id: session[:id]).order(data: :desc, tipo: :desc).paginate(page: 1, per_page: 20)
@@ -20,8 +19,6 @@ class UserController < ApplicationController
     def planejamento_mensal
         unidade_bandejao = session[:unidade_bandejao]
         user_id = session[:id]
-
-        
 
         @possui_refeicao_registrada = Refeicao.exists?(user_id: session[:id])
         @calendario_dias = Calendario.all
@@ -56,76 +53,71 @@ class UserController < ApplicationController
                 )
             end
         end
-      
+    
         redirect_to user_planejamento_mensal_path, notice: 'Refeições registradas com sucesso!'
-      end
+    end
       
       
-      def desselecionar_todas_refeicoes
+    def desselecionar_todas_refeicoes
         Refeicao.where(user_id: session[:id]).where.not(status_confirmacao: 'C').destroy_all
-      
+        
         redirect_to user_planejamento_mensal_path, notice: 'Refeições removidas com sucesso!'
-      end
+    end
       
-      def cancelar_refeicao_planejamento_almoco
+    def cancelar_refeicao_planejamento_almoco
         data = params.permit(:user_id, :tipo, :unidade_bandejao, :dia_da_semana, :data)
-      
-        # Validação dos parâmetros
+        
         unless data[:user_id].present? && data[:tipo].present? && data[:unidade_bandejao].present? && data[:dia_da_semana].present?
-          redirect_to user_planejamento_mensal_path, alert: 'Parâmetros inválidos'
-          return
+            redirect_to user_planejamento_mensal_path, alert: 'Parâmetros inválidos'
+            return
         end
-      
-        # Exclusão da refeição do banco de dados
+        
         Refeicao.where(user_id: data[:user_id], tipo: 'Almoço', data: data[:data]).delete_all
-      
+        
         redirect_to user_planejamento_mensal_path, notice: 'Refeição cancelada com sucesso!'
-      end
+    end
       
-      def cancelar_refeicao_planejamento_janta
+    def cancelar_refeicao_planejamento_janta
         data = params.permit(:user_id, :tipo, :unidade_bandejao, :dia_da_semana, :data)
-      
-        # Validação dos parâmetros
+        
         unless data[:user_id].present? && data[:tipo].present? && data[:unidade_bandejao].present? && data[:dia_da_semana].present?
-          redirect_to user_planejamento_mensal_path, alert: 'Parâmetros inválidos'
-          return
+            redirect_to user_planejamento_mensal_path, alert: 'Parâmetros inválidos'
+            return
         end
-      
-        # Exclusão da refeição do banco de dados
+        
         Refeicao.where(user_id: data[:user_id], tipo: 'Janta', data: data[:data]).delete_all
-      
+        
         redirect_to user_planejamento_mensal_path, notice: 'Refeição cancelada com sucesso!'
-      end
+    end
       
-def registrar_refeicao
-  refeicao_params = params.permit(:user_id, :tipo, :unidade_bandejao, :dia_da_semana, :data)
-  
-  refeicao = Refeicao.create(refeicao_params)
-  
-  if refeicao.save
-    redirect_to user_planejamento_mensal_path, notice: 'Refeição registrada com sucesso!'
-  else
-    redirect_to user_planejamento_mensal_path, alert: 'Falha ao registrar refeição.'
-  end
-end
+    def registrar_refeicao
+        refeicao_params = params.permit(:user_id, :tipo, :unidade_bandejao, :dia_da_semana, :data)
+        
+        refeicao = Refeicao.create(refeicao_params)
+        
+        if refeicao.save
+            redirect_to user_planejamento_mensal_path, notice: 'Refeição registrada com sucesso!'
+        else
+            redirect_to user_planejamento_mensal_path, alert: 'Falha ao registrar refeição.'
+        end
+    end
 
-def confirmar_refeicao
-    data = params
+    def confirmar_refeicao
+        data = params
+    
+        params.require(:id_refeicao)
+        params.require(:unidade_bandejao)
+    
+        Refeicao.where(id: data[:id_refeicao]).update(status_confirmacao: 'C', unidade_bandejao: data[:unidade_bandejao])
+    
+        redirect_to user_dashboard_path, notice: 'Refeição confirmada com sucesso!'
+    end
   
-    params.require(:id_refeicao)
-    params.require(:unidade_bandejao)
-  
-    Refeicao.where(id: data[:id_refeicao]).update(status_confirmacao: 'C', unidade_bandejao: data[:unidade_bandejao])
-  
-    redirect_to user_dashboard_path, notice: 'Refeição confirmada com sucesso!'
-  end
-  
-  def cancelar_refeicao
-    id_refeicao = params[:id_refeicao]
-  
-    Refeicao.delete(id_refeicao)
-  
-    redirect_to user_dashboard_path, notice: 'Refeição cancelada com sucesso!'
-  end
-  
+    def cancelar_refeicao
+        id_refeicao = params[:id_refeicao]
+    
+        Refeicao.delete(id_refeicao)
+    
+        redirect_to user_dashboard_path, notice: 'Refeição cancelada com sucesso!'
+    end
 end

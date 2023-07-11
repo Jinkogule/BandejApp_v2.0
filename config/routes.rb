@@ -13,18 +13,35 @@ Rails.application.routes.draw do
   
   get 'sair', to: 'auth#sair', as: 'sair'
   
-  get '/user/dashboard', to: 'user#dashboard', as: 'user_dashboard', constraints: UserConstraint.new
-  get '/user/planejamento_mensal', to: 'user#planejamento_mensal', as: 'user_planejamento_mensal', constraints: UserConstraint.new
+  get '/user/dashboard', to: 'users#dashboard', as: 'user_dashboard', constraints: UserConstraint.new
+  get '/user/planejamento_mensal', to: 'users#planejamento_mensal', as: 'user_planejamento_mensal', constraints: UserConstraint.new
   
-  post '/selecionar_todas_refeicoes', to: 'user#selecionar_todas_refeicoes', as: 'selecionar_todas_refeicoes'
-  post '/desselecionar_todas_refeicoes', to: 'user#desselecionar_todas_refeicoes', as: 'desselecionar_todas_refeicoes'
+  post '/selecionar_todas_refeicoes', to: 'users#selecionar_todas_refeicoes', as: 'selecionar_todas_refeicoes'
+  post '/desselecionar_todas_refeicoes', to: 'users#desselecionar_todas_refeicoes', as: 'desselecionar_todas_refeicoes'
   
-  post '/cancelar_refeicao_planejamento_almoco', to: 'user#cancelar_refeicao_planejamento_almoco', as: 'cancelar_refeicao_planejamento_almoco'
-  post '/cancelar_refeicao_planejamento_janta', to: 'user#cancelar_refeicao_planejamento_janta', as: 'cancelar_refeicao_planejamento_janta'
+  post '/cancelar_refeicao_planejamento_almoco', to: 'users#cancelar_refeicao_planejamento_almoco', as: 'cancelar_refeicao_planejamento_almoco'
+  post '/cancelar_refeicao_planejamento_janta', to: 'users#cancelar_refeicao_planejamento_janta', as: 'cancelar_refeicao_planejamento_janta'
   
-  post '/registrar_refeicao', to: 'user#registrar_refeicao', as: 'registrar_refeicao'
+  post '/registrar_refeicao', to: 'users#registrar_refeicao', as: 'registrar_refeicao'
 
-  post '/cancelar-refeicao', to: 'user#cancelar_refeicao', as: 'cancelar_refeicao'
-  post '/confirmar-refeicao', to: 'user#confirmar_refeicao', as: 'confirmar_refeicao'
+  post '/cancelar-refeicao', to: 'users#cancelar_refeicao', as: 'cancelar_refeicao'
+  post '/confirmar-refeicao', to: 'users#confirmar_refeicao', as: 'confirmar_refeicao'
   
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [] do
+        collection do
+          get :dashboard
+          get :planejamento_mensal
+          post :selecionar_todas_refeicoes
+          delete :desselecionar_todas_refeicoes
+          delete :cancelar_refeicao_planejamento_almoco
+          delete :cancelar_refeicao_planejamento_janta
+          post :registrar_refeicao
+          patch :confirmar_refeicao
+          delete :cancelar_refeicao
+        end
+      end
+    end
+  end
 end

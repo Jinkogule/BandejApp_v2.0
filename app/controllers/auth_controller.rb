@@ -74,7 +74,7 @@ class AuthController < ApplicationController
                 else
                     session[:unidade_bandejao] = user.unidade_bandejao
                     
-                    redirect_to controller: 'user', action: 'dashboard'
+                    redirect_to controller: 'users', action: 'dashboard'
 
                 end
             else
