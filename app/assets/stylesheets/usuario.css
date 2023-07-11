@@ -248,7 +248,6 @@ body{
     background-color: #575eb1;
     color: #fff;
 }
-
 /*-------------------------------Botões Selecionar/Desselecionar todos----------------------*/
 
 @media (min-width: 1000px) {
@@ -286,7 +285,7 @@ body{
 /*-------------------------------TELA DE CONFIRMAÇÃO (Modal)----------------------*/
 @media (min-width: 1000px) {
     .confirmacao-bloco{
-        background-color: #1F519B;
+        background-color: #1F519B !important;
         border-radius: 10px;
         padding: 20px;
         text-align: center;
@@ -295,7 +294,7 @@ body{
 }
 @media (max-width: 1000px) {
     .confirmacao-bloco{
-        background-color: #1F519B;
+        background-color: #1F519B !important;
         border-radius: 10px;
         padding: 20px;
         text-align: center;

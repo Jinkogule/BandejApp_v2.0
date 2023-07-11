@@ -9,11 +9,11 @@ class UserController < ApplicationController
             hoje = Date.today
       
           
-            events = Refeicao.where(user_id: session[:id]).order(:data, :tipo).paginate(page: 1, per_page: 20)
-            events2 = Refeicao.where(user_id: session[:id]).order(data: :desc, tipo: :desc).paginate(page: 1, per_page: 20)
-            verif_null = Refeicao.exists?(user_id: session[:id])
+            @events = Refeicao.where(user_id: session[:id]).order(:data, :tipo).paginate(page: 1, per_page: 20)
+            @events2 = Refeicao.where(user_id: session[:id]).order(data: :desc, tipo: :desc).paginate(page: 1, per_page: 20)
+            @verif_null = Refeicao.exists?(user_id: session[:id])
       
-            render 'user/dashboard', events: events, events2: events2, verif_null: verif_null
+            render 'user/dashboard'
         end
     end
 
@@ -97,7 +97,7 @@ class UserController < ApplicationController
         redirect_to user_planejamento_mensal_path, notice: 'Refeição cancelada com sucesso!'
       end
       
-def registra_refeicao
+def registrar_refeicao
   refeicao_params = params.permit(:user_id, :tipo, :unidade_bandejao, :dia_da_semana, :data)
   
   refeicao = Refeicao.create(refeicao_params)
@@ -109,5 +109,23 @@ def registra_refeicao
   end
 end
 
-      
+def confirmar_refeicao
+    data = params
+  
+    params.require(:id_refeicao)
+    params.require(:unidade_bandejao)
+  
+    Refeicao.where(id: data[:id_refeicao]).update(status_confirmacao: 'C', unidade_bandejao: data[:unidade_bandejao])
+  
+    redirect_to user_dashboard_path, notice: 'Refeição confirmada com sucesso!'
+  end
+  
+  def cancelar_refeicao
+    id_refeicao = params[:id_refeicao]
+  
+    Refeicao.delete(id_refeicao)
+  
+    redirect_to user_dashboard_path, notice: 'Refeição cancelada com sucesso!'
+  end
+  
 end

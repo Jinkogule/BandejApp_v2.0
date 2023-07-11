@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   post '/cancelar_refeicao_planejamento_almoco', to: 'user#cancelar_refeicao_planejamento_almoco', as: 'cancelar_refeicao_planejamento_almoco'
   post '/cancelar_refeicao_planejamento_janta', to: 'user#cancelar_refeicao_planejamento_janta', as: 'cancelar_refeicao_planejamento_janta'
   
-  post '/registra_refeicao', to: 'user#registra_refeicao', as: 'registra_refeicao'
+  post '/registrar_refeicao', to: 'user#registrar_refeicao', as: 'registrar_refeicao'
+
+  post '/cancelar-refeicao', to: 'user#cancelar_refeicao', as: 'cancelar_refeicao'
+  post '/confirmar-refeicao', to: 'user#confirmar_refeicao', as: 'confirmar_refeicao'
   
 end

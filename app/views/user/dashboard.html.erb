@@ -25,9 +25,19 @@
         <%= render 'comuns/mensagens' %>
         
         <div class="container container-login">
-            Dashboard - Usuário
-            <br>
-            <p>Nome: </p>
+            <!-- temporário -->
+                <% @events2.each do |event| %>
+                <% if event.status_confirmacao == 'P' %>
+                    <script type="text/javascript">
+                    $(window).on('load', function() {
+                        $('#confirmacao-notificacao<%= event.id %>').modal('show');
+                    });
+                    </script>
+                <% end %>
+                    <%= render 'user/components/modals-confirmacao', event: event %>
+                <% end %>
+                <!-- temporário -->
+
 
         </div>
     </body>

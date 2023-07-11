@@ -480,3 +480,9 @@ ul.grupo-desplegable > li:hover > ul.sub-grupo-desplegable {
     border-right: none;
     border-left: none;
 }
+
+/*--------GERAL--------*/
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.5;
+}
