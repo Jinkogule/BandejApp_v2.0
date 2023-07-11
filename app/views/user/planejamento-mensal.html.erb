@@ -24,39 +24,121 @@
         <!--Mensagens-->
         <%= render 'comuns/mensagens' %>
         
-        <div class="container-fluid container-pm">
+        <div class="container-pm">
             <br>
             <h2 style="text-align: center; color: #fff;">Planejamento Mensal</h2>
             <hr>
             <div style="text-align: center;">
                 <span style="color: #fff;">Selecione as refeições que você pretende realizar no bandejão</span>
             </div>
-                        <div class="container-fluid container2-pm" style="overflow: auto">
+            <div class="container2-pm" style="overflow: auto">
                 <div class="grid-container-element">
-                <div>
-                    <%= form_tag(selecionar_todas_refeicoes_path, method: :post, id: 'selecionar_todas_refeicoes') do %>
-                    <%= csrf_meta_tags %>
-                    <%= check_box_tag :select_all, 1, false, onchange: "$(this).closest('form').submit()" %>
-                    <span class="selecionar-desselecionar-todos">Selecionar todos</span>
-                    <% end %>
+                    <div>
+                        <%= form_tag(selecionar_todas_refeicoes_path) do %>
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                        <%= check_box_tag 'select_all', true, false, onchange: "$(this).closest('form').submit()" %>
+                        <span class="selecionar-desselecionar-todos">Selecionar todos</span>
+                        <% end %>
+                    </div>
+                    <div>
+                        <%= form_tag(desselecionar_todas_refeicoes_path) do %>
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                        <%= check_box_tag 'deselect_all', true, false, onchange: "$(this).closest('form').submit()" %>
+                        <span class="selecionar-desselecionar-todos">Desselecionar todos</span>
+                        <% end %>
+                    </div>
                 </div>
-                <div>
-                    <%= form_tag(desselecionar_todas_refeicoes_path, method: :post, id: 'desselecionar_todas_refeicoes') do %>
 
-                    <%= csrf_meta_tags %>
-                    <%= check_box_tag :deselect_all, 1, false, onchange: "$(this).closest('form').submit()" %>
-                    <span class="selecionar-desselecionar-todos">Desselecionar todos</span>
-                    <% end %>
-                </div>
-                </div>
+
+                <% @calendario_dias.each do |event| %>
+
+                    <% data_banco = event.data %>
+                    <% data_visual = data_banco.strftime("%d/%m/%y") %>
+                    <% dia_da_semana_visual = event.dia_da_semana.capitalize %>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title" style="text-align: center; color: #fff;"><%= "#{dia_da_semana_visual} - #{data_visual}" %></span>
+                        </div>
+
+                        <div class="card-body">
+                            <% if Refeicao.where(user_id: session[:id], tipo: 'Almoço', data: event.data).count == 1 %>
+                                <%= form_tag(cancelar_refeicao_planejamento_almoco_path) do %>
+                                    <%= hidden_field_tag :tipo, 'Almoço' %>
+                                    <%= hidden_field_tag :unidade_bandejao, unidade_bandejao %>
+                                    <%= hidden_field_tag :dia_da_semana, event.dia_da_semana %>
+                                    <%= hidden_field_tag :data, event.data %>
+                                    <%= hidden_field_tag :user_id, session[:id] %>
+
+                                    <%= check_box_tag "checkboxAlmoço_#{event.id}", true, true, onchange: "$(this).closest('form').submit()" %>
+                                    <%= label_tag :tipo, "Almoço - #{unidade_bandejao}", class: "text-shadow" %>
+
+                                    <% status_refeicao_dessa_data = Refeicao.where(user_id: session[:id], data: event.data, tipo: 'Almoço').pluck(:status_confirmacao).first %>
+                                    <% if status_refeicao_dessa_data == "C" %>
+                                        <script>
+                                            $("#checkboxAlmoço_#{event.id}").prop("disabled", true);
+                                        </script>
+                                    <% end %>
+                                <% end %>
+                            <% else %>
+                                <%= form_tag(registra_refeicao_path) do %>
+                                    <%= hidden_field_tag :tipo, 'Almoço' %>
+                                    <%= hidden_field_tag :unidade_bandejao, unidade_bandejao %>
+                                    <%= hidden_field_tag :dia_da_semana, event.dia_da_semana %>
+                                    <%= hidden_field_tag :data, event.data %>
+                                    <%= hidden_field_tag :user_id, session[:id] %>
+
+                                    <%= check_box_tag "checkboxAlmoço_#{event.id}", true, false, onchange: "$(this).closest('form').submit()" %>
+                                    <%= label_tag :tipo, "Almoço - #{unidade_bandejao}", class: "text-shadow" %>
+                                <% end %>
+                            <% end %>
+
+                            <hr>
+
+                            <% if Refeicao.where(user_id: session[:id], tipo: 'Janta', data: event.data).count == 1 %>
+                                <%= form_tag(cancelar_refeicao_planejamento_janta_path) do %>
+                                    <%= hidden_field_tag :tipo, 'Janta' %>
+                                    <%= hidden_field_tag :unidade_bandejao, unidade_bandejao %>
+                                    <%= hidden_field_tag :dia_da_semana, event.dia_da_semana %>
+                                    <%= hidden_field_tag :data, event.data %>
+                                    <%= hidden_field_tag :user_id, session[:id] %>
+
+                                    <%= check_box_tag "checkboxJanta_#{event.id}", true, true, onchange: "$(this).closest('form').submit()" %>
+                                    <%= label_tag :tipo, "Janta - #{unidade_bandejao}", class: "text-shadow" %>
+
+                                    <% status_refeicao_dessa_data = Refeicao.where(user_id: session[:id], data: event.data, tipo: 'Janta').pluck(:status_confirmacao).first %>
+                                    <% if status_refeicao_dessa_data == "C" %>
+                                        <script>
+                                            $("#checkboxJanta_#{event.id}").prop("disabled", true);
+                                        </script>
+                                    <% end %>
+                                <% end %>
+                            <% else %>
+                                <%= form_tag(registra_refeicao_path) do %>
+                                    <%= hidden_field_tag :tipo, 'Janta' %>
+                                    <%= hidden_field_tag :unidade_bandejao, unidade_bandejao %>
+                                    <%= hidden_field_tag :dia_da_semana, event.dia_da_semana %>
+                                    <%= hidden_field_tag :data, event.data %>
+                                    <%= hidden_field_tag :user_id, session[:id] %>
+
+                                    <%= check_box_tag "checkboxJanta_#{event.id}", true, false, onchange: "$(this).closest('form').submit()" %>
+                                    <%= label_tag :tipo, "Janta - #{unidade_bandejao}", class: "text-shadow" %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
             </div>
-<% @calendario_dias.each do |calendario| %>
-  <p>Dia da semana: <%= calendario.dia_da_semana %></p>
-  <p>Data: <%= calendario.data %></p>
-  <hr>
-<% end %>
 
-            </div>
-
+            <% if @possui_refeicao_registrada %>
+                <%= form_tag("/user/dashboard", class: "d-grid mx-auto mb-2 pb-2") do %>
+                    <%= submit_tag "Próxima etapa", class: "btn btn-confirmar btn-block" %>
+                <% end %>
+            <% else %>
+                <%= form_tag("/user/dashboard", class: "d-grid mx-auto mb-2 pb-2") do %>
+                    <%= submit_tag "Próxima etapa", class: "btn btn-confirmar btn-block", disabled: true %>
+                <% end %>
+            <% end %>
+        </div>
     </body>
 </html>

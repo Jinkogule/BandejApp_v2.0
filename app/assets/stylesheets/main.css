@@ -54,6 +54,7 @@ hr { display: block; height: 1px;
     text-align: left !important;
     margin-bottom: 5px;
     margin-top: 5px !important;
+    margin: 10px;
 }
 .engrenagem{
     color:#555555;

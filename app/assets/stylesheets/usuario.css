@@ -171,6 +171,7 @@ body{
         width: 600px; 
         border-radius: 10px;
         position: relative;
+        margin: 0 auto;
     }
 }
 @media (max-width: 1000px) {
@@ -180,6 +181,7 @@ body{
         width: 98%; 
         border-radius: 10px;
         position: relative;
+        margin: 0 auto;
     }
 }
 @media (min-width: 1000px) {
@@ -190,6 +192,7 @@ body{
         margin-top: 15px;  
         margin-bottom: 15px;
         border-radius: 10px;
+        margin: 0 auto;
     }
 }
 @media (max-width: 1000px) {
@@ -200,19 +203,20 @@ body{
         margin-top: 15px;  
         margin-bottom: 15px;
         border-radius: 10px;
+        margin: 0 auto;
     }
 }
 
 
 /*----BOTÕES----*/
 .btn-confirmar{
-    background-color: #44832d;
-    border-radius: 10px;
-    color: #fff;
+    background-color: #44832d !important;
+    border-radius: 10px !important;
+    color: #fff !important;
 }
 .btn-confirmar:hover{
-    background-color: #3d642f;
-    color: #fff;
+    background-color: #3d642f !important;
+    color: #fff !important;
 }
 
 .btn-cancelar{
